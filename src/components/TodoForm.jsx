@@ -6,8 +6,6 @@ function TodoForm(props) {
   const [selectedUser, setSelectedUser]= useState(null)
   const inputRef = useRef(null);
 
-  // console.log(props)
-
   const customStyles = {
     menu: (provided) => ({
       ...provided,
@@ -34,7 +32,6 @@ function TodoForm(props) {
 
   const handleChange = e => {
     setInput(e.target.value);
-    // console.log(input)
   };
 
   const handleSelect = e => {
@@ -55,13 +52,12 @@ function TodoForm(props) {
       completed: props.edit ? props.edit.completed : false,
     });
     console.log(props, 'DEPOISSS de alterar <<<')
-    // console.log('dentro do handleSubmit', props.edit.userId)
     setInput('');
   };
 
   return (
     <form onSubmit={handleSubmit} className='todo-form'>
-      {/* não vai cair na primeira condição pois  */}
+      {/* não vai cair na primeira condição pois edição está desabilitada */}
       {props.edit ? (
         <>
           <input

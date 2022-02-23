@@ -27,8 +27,6 @@ function TodoList(usersList, todosList) {
     .then((users) => 
     setUsers(users.data))
   }, [])
-  // setTodos(todosList || []);
-  // console.log(users, 'aquiii')
 
   const handleChange = e => {
     setInput(e.target.value);
@@ -44,7 +42,6 @@ function TodoList(usersList, todosList) {
     const newTodos = [todo, ...todos];
 
     setTodos(newTodos);
-    console.log(...todos);
   };
 
   const updateTodo = (todoId, newValue) => {

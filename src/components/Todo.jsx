@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
 import { RiCloseCircleLine } from 'react-icons/ri';
-// import { TiEdit } from 'react-icons/ti';
 import { IoMdCheckboxOutline } from 'react-icons/io';
 
 const Todo = ({ todos, completeTodo, removeTodo, updateTodo, users }) => {
@@ -39,7 +38,6 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo, users }) => {
     <div
       className={todo.completed ? 'todo-row complete' : 'todo-row'}
       key={index}
-    // onClick={() => completeTodo(todo.id)}
     >
       <div>{getUser(todo.userId)}</div>
       <div key={todo.id}>
