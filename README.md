@@ -4,11 +4,13 @@ Why? This project was created to practice JavaScript and React skills.
 
 ## What this app do ? 
 
-Is an simple To-do app based on two online Json's:
+Is an simple To-do app who the initial database is based on two online Json's (and modifications stay local in cache):
+
 Todos: https://jsonplaceholder.typicode.com/todos
+
 Users: https://jsonplaceholder.typicode.com/users
 
-Every task in To-do app have an user.
+Every task in To-do app have an user then this two tables are conected.
 
 ## To run
 
