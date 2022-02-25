@@ -9,17 +9,6 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo, users }) => {
     value: ''
   });
 
-  function getUser(currentUser) {
-    let userName = users.map(function getName(a) {
-      if (a.id === currentUser) {
-        return a.name
-      } else {
-        return ''
-      }
-    })
-    return userName
-  }
-
   const submitUpdate = value => {
     updateTodo(edit.id, value);
     setEdit({
@@ -34,12 +23,12 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo, users }) => {
     return <TodoForm edit={edit} onSubmit={submitUpdate} />;
   }
 
-  return todos.map((todo, index) => (
+  return <> {todos.map((todo) => (
     <div
       className={todo.completed ? 'todo-row complete' : 'todo-row'}
-      key={index}
+      key={todo.id}
     >
-      <div>{getUser(todo.userId)}</div>
+      <div>{todo.user.name}</div>
       <div key={todo.id}>
         {todo.title}
       </div>
@@ -64,7 +53,7 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo, users }) => {
         />
       </div>
     </div>
-  ));
+  ))} </>;
 };
 
 export default Todo;

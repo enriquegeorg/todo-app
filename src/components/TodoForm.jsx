@@ -26,32 +26,26 @@ function TodoForm(props) {
     }),
   }
 
-  useEffect(() => {
-    inputRef.current.focus();
-  });
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // });
 
   const handleChange = e => {
     setInput(e.target.value);
   };
 
   const handleSelect = e => {
-    console.log(e)
     setSelectedUser(e.id);
-    console.log(selectedUser, 'selectedUser <<<')
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    console.log(props, 'antes de alterar <<<')
-
     props.onSubmit({
       userId: props.edit ? props.edit.userId : selectedUser,
       id: Math.floor(Math.random() * 10000),
       title: input,
       completed: props.edit ? props.edit.completed : false,
     });
-    console.log(props, 'DEPOISSS de alterar <<<')
     setInput('');
   };
 

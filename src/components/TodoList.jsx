@@ -1,38 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
 
 import axios from 'axios'
 import { useRef } from 'react'
 
-function TodoList(usersList, todosList) {
+function TodoList() {
 
   const [todos, setTodos] = useState([]);
   const [users, setUsers] = useState([]);
   const [input, setInput] = useState([]);
-  const [filteredTodos, setFilteredTodos] = useState([]);
+  // const [filteredTodos, setFilteredTodos] = useState([]);
 
   const inputRef = useRef(null);
 
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // });
   useEffect(() => {
-    inputRef.current.focus();
-  });
-  useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/todos")
-    .then((todos) => 
-    setTodos(todos.data))
+    loadTodos()
   }, [])
-  useEffect(() => {
-  axios.get("https://jsonplaceholder.typicode.com/users")
-    .then((users) => 
-    setUsers(users.data))
-  }, [])
+
+  const loadTodos = async () => {
+    const todosJson = await axios.get("https://jsonplaceholder.typicode.com/todos")
+    const usersJson = await axios.get("https://jsonplaceholder.typicode.com/users")
+    setUsers(usersJson.data)
+    const todosWithUser = todosJson.data.map((a) => ({
+      ...a,
+      user: usersJson.data.find((b) => b.id === a.userId)
+    }))
+    setTodos(todosWithUser)
+  }
 
   const handleChange = e => {
     setInput(e.target.value);
-    let filteredTodos = todos.filter((a) => a.title.includes(e.target.value))
-    return setFilteredTodos(filteredTodos)
   };
+  const filteredTodos = useMemo(() => todos.filter((a) => a.title.includes(input)), [input, todos])
+  // return setFilteredTodos(filteredTodos)
 
   const addTodo = todo => {
     if (!todo.title || /^\s*$/.test(todo.title)) {
@@ -54,6 +58,7 @@ function TodoList(usersList, todosList) {
 
   const removeTodo = id => {
     const removedArr = [...todos].filter(todo => todo.id !== id);
+    // if (filteredTodos.length > 1) setFilteredTodos(todos)
 
     setTodos(removedArr);
   };
@@ -88,7 +93,7 @@ function TodoList(usersList, todosList) {
         <div>Ações</div>
       </div>
       <Todo
-        todos={filteredTodos.length > 0 ? filteredTodos : todos}
+        todos={filteredTodos}
         users={users}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
